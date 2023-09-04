@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.17.3
+    user: root
+    volumes:
+      - ./logging/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - api-logging
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "500m" 
+
+  logstash:
+    build: 
+      context: ./
+      dockerfile: ./logging/Dockerfile.logstash
+    networks:
+      - api-logging
+    volumes:
+      - ./logging/logstash.conf:/usr/share/logstash/pipeline/logstash.conf    
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "500m"   
+
+  api_mongo_logger:
+    image: mongo:4.4.3
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all" ]
+    ports: 
+      - "5055:27017"
+    volumes:
+      - api_mongo_logs:/data/db
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "500m"
+    networks:
+      - api-logging
+
+networks:
+  api-logging:
+
+volumes:
+  api_mongo_logs:

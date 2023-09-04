@@ -1,0 +1,12 @@
+/.cache/
+/.dotnet/
+/.gnupg/
+/.npm/
+/.ssh/
+/.vscode-server/
+/build/
+/node_modules/
+/.gitconfig
+/.mycli-history
+/.mycli.log
+/.myclirc

@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "a85aff8e-c33f-4bab-9c13-ef9d75849be1",
+		"name": "Course: API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1541882"
+	},
+	"item": [
+		{
+			"name": "Non-protégé",
+			"item": [
+				{
+					"name": "File",
+					"item": [
+						{
+							"name": "Upload User File",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Blah blah",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/kevin/Pictures/IMG_0003.JPG"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/user/4/file",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"user",
+										"4",
+										"file"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Download User File",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Blah blah",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/user/4/file/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"user",
+										"4",
+										"file",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "/user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"kevin@nguni.fr\",\n    \"givenName\": \"Kevin\",\n    \"familyName\": \"Glass\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/:userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/:userId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/:userId",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \n    \"givenName\": \"Kevin\",\n    \"familyName\": \"Glasster\",\n    \"email\": \"bob@buulder.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "/auth/magic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/magic?email=kevin@nguni.fr",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"magic"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "kevin@nguni.fr"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Protégé",
+			"item": [
+				{
+					"name": "/protected/user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/protected/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"protected",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://127.0.0.1:5050",
+			"type": "string"
+		},
+		{
+			"key": "ACCESS_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

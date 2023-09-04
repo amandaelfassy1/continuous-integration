@@ -1,0 +1,28 @@
+version: '3.9'
+
+services: 
+  proxy:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    volumes:
+      - ./nginx/api-https-setup.nginx.conf:/etc/nginx/conf.d/api.nginx.conf
+      - ./nginx/certbot/www:/var/www/certbot/:ro
+      - ./nginx/certbot/conf/:/etc/nginx/ssl/:ro
+    networks:
+      - api-network
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./nginx/certbot/www/:/var/www/certbot/:rw
+      - ./nginx/certbot/conf/:/etc/letsencrypt/:rw
+    networks:
+      - api-network
+
+networks:
+  api-network:
+    driver: bridge
+    name: api-network

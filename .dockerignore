@@ -1,0 +1,7 @@
+.devcontainer
+.vscode
+build
+dbms
+node_modules
+stage
+nodemon.*
